@@ -1,17 +1,27 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const graphqlHttp = require('express-graphql');
-const { buildSchema } = require('graphql')
+const { buildSchema } = require('graphql');
+const mongoose = require('mongoose');
+
+const Event = require('./models/events');
 
 const app = express();
 const PORT = 3000;
 
+mongoose.connect(process.env.MONGO_URI).then(() => {
+  console.log("Successfully connected to the database");
+}).catch(err => {
+  console.log('Could not connect to the database. Exiting now...');
+  process.exit();
+});
+
 app.use(bodyParser.json());
 
-const events = [];
+// const events = [];
 
-app.use('/graphql',graphqlHttp({
-  schema:buildSchema(`
+app.use('/graphql', graphqlHttp({
+  schema: buildSchema(`
     type Event {
       _id : ID!
       title: String!
@@ -39,28 +49,38 @@ app.use('/graphql',graphqlHttp({
       mutation:RootMutation
     }
   `),
-  rootValue:{
-    events:()=>{
-      return events;
+  rootValue: {
+    events: () => {
+      return Event.find().then(events =>{
+        return events.map(event =>{
+          return {...event._doc, _id:event.id};
+        })
+      }).catch(err =>{
+        throw err;
+      });
     },
-    createEvent:(args) => {
-      const event = {
-        _id: Math.random().toString(),
+    createEvent: (args) => {
+      const event = new Event({
         title: args.eventInput.title,
         description: args.eventInput.description,
         price: +args.eventInput.price,
         date: new Date().toISOString()
-      };
-      console.log(args);
-      events.push(event);
-      return event;
+      });
+
+      return event.save().then(result =>{
+        console.log(result);
+        return {...result._doc, _id:result._doc._id.toString()};
+      }).catch(err =>{
+        console.log(err);
+        throw err;
+      })
     }
   },
-  graphiql:true
+  graphiql: true
 }));
 
-app.listen(PORT,()=>{
+app.listen(PORT, () => {
   console.log("Running express server on ", PORT);
 });
 
-
+module.exports = app; // for testing
