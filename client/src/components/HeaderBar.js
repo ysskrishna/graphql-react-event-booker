@@ -65,13 +65,11 @@ class HeaderBar extends Component {
                       </NavLink>
                     }
                     {context.token &&
-                      // <NavLink to='/login'>
-                        <Menu.Item
-                          name='logout'
-                          active={activeItem === 'logout'}
-                          onClick={this.handleItemClick}
-                        />
-                      // </NavLink>
+                      <Menu.Item
+                        name='logout'
+                        active={activeItem === 'logout'}
+                        onClick={context.logout}
+                      />
                     }
 
                   </Menu.Menu>

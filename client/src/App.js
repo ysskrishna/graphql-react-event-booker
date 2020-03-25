@@ -35,13 +35,13 @@ class App extends Component {
           }}
         >
           <Switch>
-            {!this.state.token && <Redirect from="/" to='/login' exact />}
             {this.state.token && <Redirect from="/" to='/events' exact />}
             {this.state.token && <Redirect from="/login" to='/events' exact />}
             {!this.state.token && <Route path="/login" component={LoginView} />}
             {!this.state.token && <Route path="/register" component={RegisterView} />}
             <Route path="/events" component={EventsView} />
             {this.state.token && <Route path="/bookings" component={BookingsView} />}
+            {!this.state.token && <Redirect to='/login' exact />}
           </Switch>
         </AuthContext.Provider>
       </BrowserRouter>
