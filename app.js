@@ -8,7 +8,7 @@ const graphQlSchema = require('./graphql/schema');
 const graphQlResolvers = require('./graphql/resolvers');
 
 const app = express();
-const PORT = 3000;
+const PORT = 8000;
 
 mongoose.connect(process.env.MONGO_URI).then(() => {
   console.log("Successfully connected to the database");
@@ -18,7 +18,19 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
 });
 
 app.use(bodyParser.json());
+
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST,GET,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
 app.use(isAuth);
+
 
 app.use('/graphql', graphqlHttp({
   schema: graphQlSchema,
