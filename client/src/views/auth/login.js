@@ -25,16 +25,20 @@ class Login extends Component {
       return;
     };
 
-     let requestBody = {
+    let requestBody = {
       query: `
-        query {
-          login(email: "${email}", password: "${password}") {
-            userId
-            token
-            tokenExpiration
-          }
+      query Login($email: String!, $password: String!) {
+        login(email: $email, password: $password) {
+          userId
+          token
+          tokenExpiration
         }
-      `
+      }
+    `,
+      variables: {
+        email: email,
+        password: password
+      }
     };
 
     fetch(`${baseUrl}/graphql`, {
@@ -66,15 +70,15 @@ class Login extends Component {
   };
 
   LoginForm = () => {
-    return(
+    return (
       <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-      <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as='h2' color='teal' textAlign='center'>
-          Login to your account
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Header as='h2' color='teal' textAlign='center'>
+            Login to your account
         </Header>
-        <Form size='large'>
-          <Segment stacked>
-          <Form.Input
+          <Form size='large'>
+            <Segment stacked>
+              <Form.Input
                 type="email"
                 required
                 value={this.state.email}
@@ -96,17 +100,17 @@ class Login extends Component {
                 type='password'
                 onChange={e => this.onChange(e)}
               />
-  
-            <Button color='teal' fluid size='large' onClick={this.handleSubmit}>
-              Login
+
+              <Button color='teal' fluid size='large' onClick={this.handleSubmit}>
+                Login
             </Button>
-          </Segment>
-        </Form>
-        <Message>
-          New to us? <NavLink to='/register'>Register</NavLink>
-        </Message>
-      </Grid.Column>
-    </Grid>
+            </Segment>
+          </Form>
+          <Message>
+            New to us? <NavLink to='/register'>Register</NavLink>
+          </Message>
+        </Grid.Column>
+      </Grid>
     );
   }
 

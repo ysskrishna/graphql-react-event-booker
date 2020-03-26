@@ -24,13 +24,17 @@ class Register extends Component {
     };
     let requestBody = {
       query: `
-        mutation {
-          createUser(userInput: {email: "${email}", password: "${password}"}) {
+        mutation CreateUser($email: String!, $password: String!) {
+          createUser(userInput: {email: $email, password: $password}) {
             _id
             email
           }
         }
-      `
+    `,
+      variables: {
+        email: email,
+        password: password
+      }
     };
 
     fetch(`${baseUrl}/graphql`, {

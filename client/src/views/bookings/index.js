@@ -8,8 +8,8 @@ class Auth extends Component {
   state = {
     bookings: [],
     loadingBookings: false,
-    cancelBooking:false,
-    bookingId:null
+    cancelBooking: false,
+    bookingId: null
   };
 
   static contextType = AuthContext;
@@ -63,19 +63,22 @@ class Auth extends Component {
   };
 
   deleteBooking = (bookingId) => {
-    if (!this.context.token) {      
+    if (!this.context.token) {
       return;
     };
     this.setState({ cancelBooking: true, bookingId });
     const requestBody = {
       query: `
-          mutation {
-            cancelBooking(bookingId: "${bookingId}") {
-            _id
-             title
-            }
-          }
-        `
+      mutation CancelBooking($id: ID!) {
+        cancelBooking(bookingId: $id) {
+        _id
+         title
+        }
+      }
+    `,
+      variables: {
+        id: bookingId
+      }
     };
 
     fetch(`${baseUrl}/graphql`, {
@@ -97,12 +100,12 @@ class Auth extends Component {
           const updatedBookings = prevState.bookings.filter(booking => {
             return booking._id !== bookingId;
           });
-          return { bookings: updatedBookings, isLoading: false,bookingId:null };
+          return { bookings: updatedBookings, isLoading: false, bookingId: null };
         });
       })
       .catch(err => {
         console.log(err);
-        this.setState({ isLoading: false, bookingId:null });
+        this.setState({ isLoading: false, bookingId: null });
       });
   }
   render() {
@@ -125,7 +128,7 @@ class Auth extends Component {
                         onClick={() => this.deleteBooking(bkg._id)}
                         loading={this.state.cancelBooking && this.state.bookingId === bkg._id}
                       >Delete Event</Button>
-                    }                    
+                    }
                   </Card.Content>
                 </Card>
               );

@@ -14,7 +14,7 @@ class Events extends Component {
     description: "",
     events: [],
     loadingEvents: false,
-    bookingEvent:false,
+    bookingEvent: false,
     eventId: null
   };
 
@@ -40,16 +40,22 @@ class Events extends Component {
 
     let requestBody = {
       query: `
-        mutation {
-          createEvent(eventInput:{title:"${title}",description:"${description}", price:${price}, date: "${date}"}) {
-            _id
-            title
-            description
-            date
-            price
-          }
+      mutation CreateEvent($title: String!, $desc: String!, $price: Float!, $date: String!) {
+        createEvent(eventInput: {title: $title, description: $desc, price: $price, date: $date}) {
+          _id
+          title
+          description
+          date
+          price
         }
-      `
+      }
+    `,
+      variables: {
+        title: title,
+        desc: description,
+        price: price,
+        date: date
+      }
     };
     const token = this.context.token;
 
@@ -131,8 +137,8 @@ class Events extends Component {
       });
   };
 
-  bookEvent = (eventId) =>{
-    if (!this.context.token) {      
+  bookEvent = (eventId) => {
+    if (!this.context.token) {
       return;
     };
     this.setState({ bookingEvent: true, eventId });
@@ -164,11 +170,11 @@ class Events extends Component {
       })
       .then(resData => {
         console.log(resData);
-        this.setState({ bookingEvent: false, eventId:null });
+        this.setState({ bookingEvent: false, eventId: null });
       })
       .catch(err => {
         console.log(err);
-        this.setState({ bookingEvent: false, eventId:null });
+        this.setState({ bookingEvent: false, eventId: null });
       });
   }
 
@@ -256,7 +262,7 @@ class Events extends Component {
                       <p>You are the owner of this event.</p>
                     ) : (
                         <React.Fragment>
-                          {this.context.token && <Button color='teal' onClick={()=>this.bookEvent(e._id)}  loading={this.state.bookingEvent && this.state.eventId === e._id}>Book Event</Button>}
+                          {this.context.token && <Button color='teal' onClick={() => this.bookEvent(e._id)} loading={this.state.bookingEvent && this.state.eventId === e._id}>Book Event</Button>}
                           {!this.context.token && <NavLink to='/login'><Button color='teal'>Login & book Event</Button></NavLink>}
                         </React.Fragment>
                       )}
