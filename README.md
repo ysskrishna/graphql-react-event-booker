@@ -1,4 +1,7 @@
 # EventBiz
+
+[![License: MIT](https://img.shields.io/github/license/ysskrishna/graphql-react-event-booker)](https://github.com/ysskrishna/graphql-react-event-booker/blob/master/LICENSE) [![Author site](https://img.shields.io/badge/author-ysskrishna.space-informational)](https://ysskrishna.space)
+
 A shared events app where users can add their own events and book other users events.
 
 ## Backend Express + GraphQl + MongoDB
@@ -51,3 +54,33 @@ By default the Frontend will be running in port: 3000
 
 ## User Bookings:
 ![User Bookings Page](/images/bookings_page.png)
+
+## Built and maintained by
+
+EventBiz is built and maintained by:
+
+| | Name | GitHub | Role |
+|---|------|--------|------|
+| <img src="https://github.com/ysskrishna.png?size=120" width="60" height="60" alt="Y. Siva Sai Krishna"> | **Y. Siva Sai Krishna** | [@ysskrishna](https://github.com/ysskrishna) | Creator |
+
+## Support
+
+If you find this project helpful:
+
+- ⭐ Star the repository
+- 🐛 [Report issues](https://github.com/ysskrishna/graphql-react-event-booker/issues)
+- 🔀 Submit pull requests
+- 💝 [Sponsor on GitHub](https://github.com/sponsors/ysskrishna)
+
+## License
+
+MIT © [Y. Siva Sai Krishna](https://github.com/ysskrishna) — see [LICENSE](LICENSE) for details.
+
+---
+
+<p align="left">
+  <a href="https://github.com/ysskrishna">Author's GitHub</a> •
+  <a href="https://linkedin.com/in/ysskrishna">Author's LinkedIn</a> •
+  <a href="https://ysskrishna.space">Author's site</a> •
+  <a href="https://github.com/ysskrishna/graphql-react-event-booker/issues">Report Issues</a>
+</p>
