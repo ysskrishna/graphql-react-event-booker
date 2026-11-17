@@ -1,6 +1,6 @@
 # EventBiz
 
-[![License: MIT](https://img.shields.io/github/license/ysskrishna/graphql-react-event-booker)](https://github.com/ysskrishna/graphql-react-event-booker/blob/master/LICENSE) [![Author site](https://img.shields.io/badge/author-ysskrishna.space-informational)](https://ysskrishna.space)
+[![Author site](https://img.shields.io/badge/author-ysskrishna.space-informational)](https://ysskrishna.space)
 
 A shared events app where users can add their own events and book other users events.
 
@@ -71,10 +71,6 @@ If you find this project helpful:
 - 🐛 [Report issues](https://github.com/ysskrishna/graphql-react-event-booker/issues)
 - 🔀 Submit pull requests
 - 💝 [Sponsor on GitHub](https://github.com/sponsors/ysskrishna)
-
-## License
-
-MIT © [Y. Siva Sai Krishna](https://github.com/ysskrishna) — see [LICENSE](LICENSE) for details.
 
 ---
 
